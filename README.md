@@ -10,6 +10,23 @@ The system avoids heavy, black-box agent frameworks in favor of a clean, custom 
 2. **Silent Evaluator Agent (`llama-3.1-8b-instant`):** Asynchronous background scoring. It observes each Q&A pair and strictly outputs a JSON evaluation (`turn_score`, `technical_depth_score`, `difficulty_recommendation`). This prevents the main chat from being cluttered while informing the Interviewer's next move.
 3. **Career Coach Agent (`llama-3.3-70b-versatile`):** Post-interview synthesis. Triggers at the end of the session. Consumes the complete array of JSON evaluations and the conversation transcript to generate a structured Markdown feedback report highlighting strengths, gaps, and a practice plan.
 
+```mermaid
+graph TD
+    A[Candidate Profile & Settings] -->|Init| B(Interviewer Agent)
+    B -->|Generates Contextual Question| C[Candidate Response]
+    C --> D(Silent Evaluator Agent)
+    B -.->|Adapts difficulty based on| D
+    D -->|Strict JSON: Score, Gaps| E[(State History)]
+    E --> F{Max Turns Reached?}
+    F -- No --> B
+    F -- Yes --> G(Career Coach Agent)
+    E --> G
+    G -->|Synthesizes| H[Final Markdown Feedback Report]
+
+    classDef agents fill:#f9f,stroke:#333,stroke-width:2px;
+    class B,D,G agents;
+```
+
 ## ⚖️ Key Design Decisions & Trade-offs
 
 * **Explicit Orchestration vs. Agent Frameworks:** Opted for direct API orchestration rather than using heavy frameworks. This requires writing custom state loops but drastically reduces latency, eliminates dependency bloat, and provides granular control over the evaluation context injection.
