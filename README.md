@@ -65,6 +65,11 @@ streamlit run app.py
 
 ---
 
+# On Windows:
+# If you get an Execution Policy error, run this first:
+# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+.\venv\Scripts\activate
+
 ## 📝 Example Interview Transcripts
 
 ### Scenario 1: Strong Candidate (Data Analyst / Anomaly Detection)
