@@ -65,10 +65,12 @@ streamlit run app.py
 
 ---
 
-# On Windows:
-# If you get an Execution Policy error, run this first:
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+### On Windows:
+If you get an Execution Policy error, run this first:
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 .\venv\Scripts\activate
+```
 
 ## 📝 Example Interview Transcripts
 
